@@ -5,20 +5,25 @@ test('product has correct title' , async ({ page }) => {
     const productTitle = await page.getByTestId('titleSection')
     await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ')
    
-})
+});
+
+test.describe('Product Searches', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto('https://www.amazon.com/')
+    });
 
 test('searching a product by text', async ({page}) => {
-    await page.goto('https://www.amazon.com/')
+    
     await page.getByTestId('twotabsearchtextbox').fill('enjoi skateboard deck')
     await page.getByTestId('nav-search-submit-button').click()
  
     
 })
 
-test('finding the ASIN of the product and searching using it', async ({page}) => {
-    //nav to amazon homepage
-    await page.goto('https://www.amazon.com/')
 
+
+test('finding the ASIN of the product and searching using it', async ({page}) => {
+    
     //find searchbox and fill it
     const searchBox = page.getByTestId('twotabsearchtextbox')
     await searchBox.fill('enjoi skateboard deck')
@@ -54,5 +59,7 @@ test('finding the ASIN of the product and searching using it', async ({page}) =>
 
 
 });
+
+
   
-  
+});

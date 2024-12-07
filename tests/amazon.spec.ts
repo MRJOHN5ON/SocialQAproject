@@ -14,15 +14,27 @@ test.describe('Product Searches', () => {
     });
 
 test('searching a product by text and submit using enter button', async ({page}) => {
+
+    // search for product
     await searchForProductEnter(page, 'enjoi skateboard deck')
+
+    // click on product found in search results
     await page.getByRole('link', { name: 'Rasta Panda R7 Skateboard Deck' }).first().click()
+
+    // verify product title
     const productTitle = page.getByTestId('titleSection')
     await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ')    
 });
 
 test('searching for product by text and clicking search button', async ({page})=> {
+
+    // search for product
     await searchForProductClick(page, 'enjoi skateboard deck')
+
+    // click on product found in search results
     await page.getByRole('link', { name: 'Rasta Panda R7 Skateboard Deck' }).first().click()
+
+    // verify product title
     const productTitle = page.getByTestId('titleSection')
     await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ')
 
@@ -54,6 +66,4 @@ test('finding the ASIN of the product and searching using it', async ({page}) =>
     
 });
 
-
-  
 });

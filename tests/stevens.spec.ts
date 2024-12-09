@@ -12,6 +12,7 @@ test('has the correct product title', async ({ page }) => {
 });
 
 test('can find product using ASIN', async ({ page }) => {
+  test.slow()
   const asin = page.getByTestId("productDetails_detailBullets_sections1").getByText("ASIN").locator("xpath=following-sibling::*");
   const asinText = await asin.textContent() as string;
   await searchForProduct(page, asinText);

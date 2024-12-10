@@ -2,13 +2,6 @@ import { test, expect } from '@playwright/test';
 import {searchForProductClick, searchForProductEnter} from './helper.ts';
 
 
-test('product page should have correct title' , async ({ page }) => {
-    await page.goto('https://www.amazon.com/Enjoi-Rasta-Panda-Skateboard-Deck/dp/B07R3GNBZ6/ref=sr_1_4?crid=RJ5HFV9E2QKA&dib=eyJ2IjoiMSJ9.DhWGtwchpml_AsphYaW-nYaQf4BDC7Xnn1offZVR7ceRdujZLcawYUDpgaT5mWG_2YTw__EXNQ-3F0q71tD0aFGdb7HBS3j10YhkOF--Xo9OvVVy21ly8N-Shw8niJe_-xQeKketkoLt_yfTkn0zxUNROy5FRGWj6Bi7zBVSDgAQVb33RZmcifkt-MV4EW2KaInsYq87365EPq52v7OLwVNEG1uFkqvgKDOP_1b1LpdLZJeQYWfohp6zeYAGdUI9fPRhJvEB0-5wuz25GuyvDCg0BmudT7ZwRZfA_xe4En0.zjdRWFeO6bk7rhZIQn3D32Xtds-VcVXmxEHkMdjotBE&dib_tag=se&keywords=enjoi%2Bskateboard&qid=1733001881&sprefix=enjoi%2Bskateboard%2Caps%2C148&sr=8-4&th=1&psc=1');
-    const productTitle = page.getByTestId('titleSection')
-    await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ')
-   
-});
-
 test.describe('Product Searches', () => {
     test.beforeEach(async ({ page }) => {
       await page.goto('https://www.amazon.com/')
@@ -73,8 +66,8 @@ test('can find product using ASIN', async ({ page }) => {
     await page.getByRole('link', { name: 'Rasta Panda R7 Skateboard Deck' }).first().click()
     const productTitle = page.getByTestId('titleSection')
     await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ')
-    await page.waitForLoadState('domcontentloaded')
 
+    
     const asin = page.getByTestId("productDetails_detailBullets_sections1").getByText("ASIN").locator("xpath=following-sibling::*");
     const asinText = await asin.textContent() as string;
     await searchForProductClick(page, asinText);
@@ -83,5 +76,37 @@ test('can find product using ASIN', async ({ page }) => {
     await expect(productSearchResult).toBeVisible();
   });
 
+
+});
+
+test.describe('Adding to Cart', () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto('https://www.amazon.com/Enjoi-Rasta-Panda-Skateboard-Deck/dp/B07R3GNBZ6/ref=sr_1_4?crid=RJ5HFV9E2QKA&dib=eyJ2IjoiMSJ9.DhWGtwchpml_AsphYaW-nYaQf4BDC7Xnn1offZVR7ceRdujZLcawYUDpgaT5mWG_2YTw__EXNQ-3F0q71tD0aFGdb7HBS3j10YhkOF--Xo9OvVVy21ly8N-Shw8niJe_-xQeKketkoLt_yfTkn0zxUNROy5FRGWj6Bi7zBVSDgAQVb33RZmcifkt-MV4EW2KaInsYq87365EPq52v7OLwVNEG1uFkqvgKDOP_1b1LpdLZJeQYWfohp6zeYAGdUI9fPRhJvEB0-5wuz25GuyvDCg0BmudT7ZwRZfA_xe4En0.zjdRWFeO6bk7rhZIQn3D32Xtds-VcVXmxEHkMdjotBE&dib_tag=se&keywords=enjoi%2Bskateboard&qid=1733001881&sprefix=enjoi%2Bskateboard%2Caps%2C148&sr=8-4&th=1&psc=1')
+    });
+
+    test('product page should have correct title' , async ({ page }) => {
+        
+        const productTitle = page.getByTestId('titleSection')
+        await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ')
+       
+    });
+
+    test('can add product to cart', async ({ page }) => {
+        
+        const addToCart = page.getByTestId("add-to-cart-button");
+        await addToCart.click();
+
+        const warrantyPanel = page.getByTestId('attach-desktop-sideSheet');
+        const warrantyPanelVisible = await warrantyPanel.isVisible();
+
+    if (warrantyPanelVisible) {
+        const warrantyButton = page.getByTestId('attachSiNoCoverage-announce');
+        await warrantyButton.click();
+    }
+    const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS');
+    await expect(successMessage).toBeVisible();
+
+
+    });
 
 });

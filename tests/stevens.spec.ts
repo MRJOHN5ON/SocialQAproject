@@ -21,27 +21,27 @@ test('can find product using ASIN', async ({ page }) => {
   await expect(productSearchResult).toBeVisible();
 });
 
-// test('can add product to cart', async ({ page }) => {
-//   // Add product to cart
-//   const addToCart = page.getByTestId("add-to-cart-button-ubb");
-//   await addToCart.click();
+test('can add product to cart', async ({ page }) => {
+  // Add product to cart
+  const addToCart = page.getByTestId("add-to-cart-button-ubb");
+  await addToCart.click();
 
-//   // Verify cart count
-//   const cartItemCount = page.getByTestId("nav-cart-count");
-//   await expect(cartItemCount).toHaveText("1");
+  // Verify cart count
+  const cartItemCount = page.getByTestId("nav-cart-count");
+  await expect(cartItemCount).toHaveText("1");
 
-//   // View itmes in cart
-//   const goToCart = page.getByTestId("sw-gtc");
-//   await goToCart.click();
+  // View itmes in cart
+  const goToCart = page.getByTestId("sw-gtc");
+  await goToCart.click();
 
-//   // Verify item quantity
-//   const itemQuantity = page.getByTestId("a-autoid-1-announce");
-//   await expect(itemQuantity).toHaveText("Qty:1")
+  // Verify item quantity
+  const itemQuantity = page.getByTestId("a-autoid-1-announce");
+  await expect(itemQuantity).toHaveText("Qty:1")
 
-//   // Go to checkout
-//   const goToCheckout = page.getByTestId("sc-buy-box-ptc-button");
-//   await goToCheckout.click();
+  // Go to checkout
+  const goToCheckout = page.getByTestId("sc-buy-box-ptc-button");
+  await goToCheckout.click();
 
-//   // Verify the sign in URL
-//   await expect(page).toHaveURL(/.*signin.*/);
-// });
+  // Verify the sign in URL
+  await expect(page).toHaveURL(/.*signin.*/);
+});

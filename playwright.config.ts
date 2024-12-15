@@ -10,12 +10,14 @@ export default defineConfig({
   use: {
     trace: 'retain-on-failure',
     testIdAttribute: "id",
+    permissions: ["clipboard-read"]
   },
 
   projects: [
     {
       name: 'chrome',
       use: { ...devices['Desktop Chrome'] },
+      
     },
   ],
 });

@@ -1,6 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, } from '@playwright/test';
+import { copyWithButton, } from './helper';
 
-test('Choose any podcast. Verify the shareable link matches the text copied from the Copy Link button' , async ({ page }) => {
+test('Choose any podcast. Verify the shareable link matches the text copied from the Copy Link button' , async ({ page, context }) => {
 
     await page.goto('https://music.amazon.com/')
     page.waitForLoadState('domcontentloaded')
@@ -17,24 +18,16 @@ test('Choose any podcast. Verify the shareable link matches the text copied from
     await shareButton.click();
 
     const linkField = await page.locator('._3QpxCCZ2ZUyhnlmpwSU7as ').inputValue()
-    await expect(linkField).toContain('https://music.amazon.com/podcasts/')
+    expect(linkField).toContain('https://music.amazon.com/podcasts/')
 
     //press the copy link button
-    const copyLinkButton = page.locator('music-button').filter({ hasText: 'Copy link' }).getByRole('button')
-    await copyLinkButton.click();
+    const copyButton = page.locator('music-button').filter({ hasText: 'Copy link' }).getByRole('button')
+
+    // using the helper function read the clipboard content
+    const clipboardText = await copyWithButton(page, context, copyButton)
     
-    //wait for the link to be copied??
-    await page.waitForTimeout(1200);
-
-    //verify the link copied is the same as the link in the field
-    const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-
-    // found this method @ https://playwrightsolutions.com/how-do-i-access-the-browser-clipboard-with-playwright/
-
-    //debugging?
-    console.log(clipboardText)
-
-    await expect(clipboardText).toEqual(linkField)
+    // verify the clipboard content is the same as the link field
+    expect(clipboardText).toEqual(linkField)
 
 
 

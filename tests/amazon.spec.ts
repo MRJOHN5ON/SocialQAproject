@@ -123,7 +123,7 @@ test.describe('Adding to Cart', () => {
         await expect(cartItemCount).toHaveText("1");
 
         //View your cart 
-        const goToCartbutton = page.getByRole('link', { name: 'Go to Cart' })
+        const goToCartbutton = page.getByTestId("sw-gtc")
         await expect(goToCartbutton).toBeVisible()
         await goToCartbutton.click()
 

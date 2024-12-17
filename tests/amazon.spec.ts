@@ -245,11 +245,6 @@ test.describe('Adding to Cart', () => {
         await expect(proceedToCheckoutButton).toBeVisible();
         await proceedToCheckoutButton.click();
         await expect(page).toHaveURL(/signin/);
-
-
-
-
     });
 
 });
-

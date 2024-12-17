@@ -4,7 +4,6 @@ import { copyWithButton, } from './helper';
 test('Choose any podcast. Verify the shareable link matches the text copied from the Copy Link button' , async ({ page, context }) => {
 
     await page.goto('https://music.amazon.com/')
-    page.waitForLoadState('domcontentloaded')
     // click on podcasts
     await page.getByRole('link', { name: 'Podcasts' }).click();
     await expect(page).toHaveURL('https://music.amazon.com/podcasts')
@@ -17,7 +16,7 @@ test('Choose any podcast. Verify the shareable link matches the text copied from
     const shareButton = page.getByTestId('detailHeaderButton2')
     await shareButton.click();
 
-    const linkField = await page.locator('._3QpxCCZ2ZUyhnlmpwSU7as ').inputValue()
+    const linkField = await page.getByTestId("dialog").locator("input").inputValue();
     expect(linkField).toContain('https://music.amazon.com/podcasts/')
 
     //press the copy link button
@@ -28,7 +27,4 @@ test('Choose any podcast. Verify the shareable link matches the text copied from
     
     // verify the clipboard content is the same as the link field
     expect(clipboardText).toEqual(linkField)
-
-
-
 });

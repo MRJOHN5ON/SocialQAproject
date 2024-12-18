@@ -2,13 +2,13 @@ import { test, expect } from '@playwright/test';
 import { searchForProduct } from './utils';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://a.co/d/16hFnjq');
+  await page.goto('https://a.co/d/7bznbR3');
 })
 
 test('has the correct product title', async ({ page }) => {
   const productTitle = page.getByTestId("title");
 
-  await expect(productTitle).toHaveText('        Enjoi Rasta Panda R7 Skateboard Deck       ');
+  await expect(productTitle).toHaveText('        Powell Peralta Geegah Ripper Skate Deck       ');
 });
 
 test('can find product using ASIN', async ({ page }) => {
@@ -17,7 +17,7 @@ test('can find product using ASIN', async ({ page }) => {
   const asinText = await asin.textContent() as string;
   await searchForProduct(page, asinText);
 
-  const productSearchResult = page.getByText('        Enjoi Rasta Panda R7 Skateboard Deck       ', { exact: true });
+  const productSearchResult = page.getByText('        Powell Peralta Geegah Ripper Skate Deck       ', { exact: true });
   await expect(productSearchResult).toBeVisible();
 });
 

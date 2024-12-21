@@ -1,7 +1,7 @@
 import { test, expect, } from '@playwright/test';
 import { copyWithButton, } from './helper';
 
-test('Choose any podcast. Verify the shareable link matches the text copied from the Copy Link button' , async ({ page, context }) => {
+test('Choose any podcast. Verify the shareable link matches the text copied from the Copy Link button', async ({ page, context }) => {
 
     await page.goto('https://music.amazon.com/')
     // click on podcasts
@@ -24,7 +24,7 @@ test('Choose any podcast. Verify the shareable link matches the text copied from
 
     // using the helper function read the clipboard content
     const clipboardText = await copyWithButton(page, context, copyButton)
-    
+
     // verify the clipboard content is the same as the link field
     expect(clipboardText).toEqual(linkField)
 });

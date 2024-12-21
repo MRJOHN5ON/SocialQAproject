@@ -16,27 +16,23 @@ test.describe('Adding to Cart', () => {
 
     //adding product to cart
     test('can add product to cart and deny warranty', async ({ page }) => {
+        
         //clicking add to cart button
         const addToCart = page.getByTestId("add-to-cart-button")
         await addToCart.click()
 
-        //if the warranty panel is visible, click the button to say no thanks to the warranty
-        const warrantyPanel = page.getByTestId('attach-desktop-sideSheet')
-        const warrantyPanelVisible = await warrantyPanel.isVisible()
+        // Wait for the "No thanks" button to be visible on the warranty panel
+        const noThanksButton = page.getByTestId('attachSiNoCoverage-announce');
+        const warrantyPanelVisible = await noThanksButton.isVisible();
 
         if (warrantyPanelVisible) {
-            const noThanksButton = page.getByTestId('attachSiNoCoverage-announce')
-            await expect(noThanksButton).toBeVisible()
-
-            await noThanksButton.click({ force: true })
-
-        }
-        else {
+            await expect(noThanksButton).toBeVisible();
+            await noThanksButton.click({ force: true });
+        } else {
             //assert the success message 
-            const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS')
-            await expect(successMessage).toBeVisible()
+            const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS');
+            await expect(successMessage).toBeVisible();
         }
-
 
         // Verify cart count
         const cartItemCount = page.getByTestId("nav-cart-count");
@@ -57,8 +53,6 @@ test.describe('Adding to Cart', () => {
         await expect(proceedToCheckoutButton).toBeVisible();
         await proceedToCheckoutButton.click();
         await expect(page).toHaveURL(/signin/);
-
-
     });
 
     test('can add product to cart and add 2 year warranty', async ({ page }) => {
@@ -67,26 +61,20 @@ test.describe('Adding to Cart', () => {
         const addToCart = page.getByTestId("add-to-cart-button")
         await addToCart.click()
 
-        //if the warranty panel is visible, click the button to say yes to the warranty
-        const warrantyPanel = page.getByTestId('attach-desktop-sideSheet')
-        const warrantyPanelVisible = await warrantyPanel.isVisible()
+        // Wait for the "Select warranty option" checkbox to be visible on the warranty panel
+        const twoYearWarrantyCheckbox = page.locator('[data-a-input-name="0"]').getByRole('checkbox', { name: 'Select warranty option' });
+        const warrantyPanelVisible = await twoYearWarrantyCheckbox.isVisible();
 
         if (warrantyPanelVisible) {
-            //assert the checkbox is visible and click it
-            const twoYearWarrantyCheckbox = page.locator('[data-a-input-name="0"]').getByRole('checkbox', { name: 'Select warranty option' });
-            await expect(twoYearWarrantyCheckbox).toBeVisible()
-            await twoYearWarrantyCheckbox.click({ force: true })
-            await expect(twoYearWarrantyCheckbox).toBeChecked()
+            await expect(twoYearWarrantyCheckbox).toBeVisible();
+            await twoYearWarrantyCheckbox.click({ force: true });
+            await expect(twoYearWarrantyCheckbox).toBeChecked();
 
             //click the add protection button to add the warranty
-            const addProtectionButton = page.getByTestId('attachSiAddCoverage')
-            await expect(addProtectionButton).toBeVisible()
-            await addProtectionButton.click({ force: true })
-        }
-
-        //If not visible then just assert the success message 
-
-        else {
+            const addProtectionButton = page.getByTestId('attachSiAddCoverage');
+            await expect(addProtectionButton).toBeVisible();
+            await addProtectionButton.click({ force: true });
+        } else {
             const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS');
             await expect(successMessage).toBeVisible();
         }
@@ -120,26 +108,20 @@ test.describe('Adding to Cart', () => {
         const addToCart = page.getByTestId("add-to-cart-button")
         await addToCart.click()
 
-        //if the warranty panel is visible, click the button to say yes to the warranty 
-        const warrantyPanel = page.getByTestId('attach-desktop-sideSheet')
-        const warrantyPanelVisible = await warrantyPanel.isVisible()
+        // Wait for the "Select warranty option" checkbox to be visible on the warranty panel
+        const completeProtectionCheckbox = page.locator('[data-a-input-name="1"]').getByRole('checkbox', { name: 'Select warranty option' });
+        const warrantyPanelVisible = await completeProtectionCheckbox.isVisible();
 
         if (warrantyPanelVisible) {
-            //assert the checkbox is visible and click it
-            const completeProtectionCheckbox = page.locator('[data-a-input-name="1"]').getByRole('checkbox', { name: 'Select warranty option' });
-            await expect(completeProtectionCheckbox).toBeVisible()
-            await completeProtectionCheckbox.click({ force: true })
-            await expect(completeProtectionCheckbox).toBeChecked()
+            await expect(completeProtectionCheckbox).toBeVisible();
+            await completeProtectionCheckbox.click({ force: true });
+            await expect(completeProtectionCheckbox).toBeChecked();
 
             //click the add protection button to add the warranty
-            const addProtectionButton = page.getByTestId('attachSiAddCoverage')
-            await expect(addProtectionButton).toBeVisible()
-            await addProtectionButton.click({ force: true })
-
-            //If not visible then just assert the success message
-        }
-
-        else {
+            const addProtectionButton = page.getByTestId('attachSiAddCoverage');
+            await expect(addProtectionButton).toBeVisible();
+            await addProtectionButton.click({ force: true });
+        } else {
             const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS');
             await expect(successMessage).toBeVisible();
         }

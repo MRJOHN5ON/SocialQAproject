@@ -32,6 +32,7 @@ test.describe('Product Searches', () => {
         const productTitle = page.getByTestId('titleSection')
         await expect(productTitle).toHaveText('        Powell Peralta Geegah Ripper Skate Deck       ')
     });
+
     // test only works if the product has customer reviews
     test('finding the ASIN of the product with customer reviews and searching using it', async ({ page }) => {
 
@@ -58,6 +59,7 @@ test.describe('Product Searches', () => {
         await expect(productTitle).toHaveText('        Powell Peralta Geegah Ripper Skate Deck       ')
 
     });
+
     //Universally applicable test for all products
     test('can find product using ASIN', async ({ page }) => {
 
@@ -76,6 +78,4 @@ test.describe('Product Searches', () => {
         const productSearchResult = page.getByText('        Powell Peralta Geegah Ripper Skate Deck       ', { exact: true });
         await expect(productSearchResult).toBeVisible();
     });
-
-
 });

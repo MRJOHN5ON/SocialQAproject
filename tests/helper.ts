@@ -18,12 +18,12 @@ export async function copyWithButton(
     page: Page,
     context: BrowserContext,
     copyButton: Locator,
-    
+
 ) {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await copyButton.click();
     const clipboardContent = await page.evaluate(() => navigator.clipboard.readText());
     return clipboardContent;
-    
-    
+
+
 }

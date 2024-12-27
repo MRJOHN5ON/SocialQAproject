@@ -62,8 +62,10 @@ test.describe('Adding to Cart', () => {
         await addToCart.click()
 
         // Wait for the "Select warranty option" checkbox to be visible on the warranty panel
-        const twoYearWarrantyCheckbox = page.locator('[data-a-input-name="0"]').getByRole('checkbox', { name: 'Select warranty option' });
+        const twoYearWarrantyCheckbox = page.locator('input[type="checkbox"][name="0"]');
         const warrantyPanelVisible = await twoYearWarrantyCheckbox.isVisible();
+        await expect(twoYearWarrantyCheckbox).toBeVisible();
+        
 
         if (warrantyPanelVisible) {
             await expect(twoYearWarrantyCheckbox).toBeVisible();
@@ -108,8 +110,8 @@ test.describe('Adding to Cart', () => {
         const addToCart = page.getByTestId("add-to-cart-button")
         await addToCart.click()
 
-        // Wait for the "Select warranty option" checkbox to be visible on the warranty panel
-        const completeProtectionCheckbox = page.locator('[data-a-input-name="1"]').getByRole('checkbox', { name: 'Select warranty option' });
+        
+        const completeProtectionCheckbox = page.getByTestId('attach-warranty-multi-device-container').locator('input[type="checkbox"]');
         const warrantyPanelVisible = await completeProtectionCheckbox.isVisible();
 
         if (warrantyPanelVisible) {

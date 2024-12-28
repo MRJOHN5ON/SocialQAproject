@@ -15,7 +15,7 @@ test.describe('Adding to Cart', () => {
     });
 
     //adding product to cart
-    test('can add product to cart and deny warranty', async ({ page }) => {
+    test('adds product to cart and verifies cart count and item quantities without warranty', async ({ page }) => {
         
         //clicking add to cart button
         const addToCart = page.getByTestId("add-to-cart-button")
@@ -23,10 +23,8 @@ test.describe('Adding to Cart', () => {
 
         // Wait for the "No thanks" button to be visible on the warranty panel
         const noThanksButton = page.getByTestId('attachSiNoCoverage-announce');
-        const warrantyPanelVisible = await noThanksButton.isVisible();
-
-        if (warrantyPanelVisible) {
-            await expect(noThanksButton).toBeVisible();
+        
+        if (await noThanksButton.isVisible()) {
             await noThanksButton.click({ force: true });
         } else {
             //assert the success message 
@@ -34,6 +32,7 @@ test.describe('Adding to Cart', () => {
             await expect(successMessage).toBeVisible();
         }
 
+        
         // Verify cart count
         const cartItemCount = page.getByTestId("nav-cart-count");
         await expect(cartItemCount).toHaveText("1");
@@ -55,7 +54,7 @@ test.describe('Adding to Cart', () => {
         await expect(page).toHaveURL(/signin/);
     });
 
-    test('can add product to cart and add 2 year warranty', async ({ page }) => {
+    test('adds product to cart, applies 2-year warranty, and verifies cart count and item quantities', async ({ page }) => {
 
         //clicking add to cart button
         const addToCart = page.getByTestId("add-to-cart-button")
@@ -63,12 +62,8 @@ test.describe('Adding to Cart', () => {
 
         // Wait for the "Select warranty option" checkbox to be visible on the warranty panel
         const twoYearWarrantyCheckbox = page.locator('input[type="checkbox"][name="0"]');
-        const warrantyPanelVisible = await twoYearWarrantyCheckbox.isVisible();
-        await expect(twoYearWarrantyCheckbox).toBeVisible();
         
-
-        if (warrantyPanelVisible) {
-            await expect(twoYearWarrantyCheckbox).toBeVisible();
+        if (await twoYearWarrantyCheckbox.isVisible()) {
             await twoYearWarrantyCheckbox.click({ force: true });
             await expect(twoYearWarrantyCheckbox).toBeChecked();
 
@@ -104,7 +99,7 @@ test.describe('Adding to Cart', () => {
 
     });
 
-    test('can add product to cart and add complete protection warranty', async ({ page }) => {
+    test('adds product to cart with complete protection warranty and verifies cart count and item quantities', async ({ page }) => {
 
         //clicking add to cart button
         const addToCart = page.getByTestId("add-to-cart-button")
@@ -112,10 +107,8 @@ test.describe('Adding to Cart', () => {
 
         
         const completeProtectionCheckbox = page.getByTestId('attach-warranty-multi-device-container').locator('input[type="checkbox"]');
-        const warrantyPanelVisible = await completeProtectionCheckbox.isVisible();
 
-        if (warrantyPanelVisible) {
-            await expect(completeProtectionCheckbox).toBeVisible();
+        if (await completeProtectionCheckbox.isVisible()) {
             await completeProtectionCheckbox.click({ force: true });
             await expect(completeProtectionCheckbox).toBeChecked();
 

@@ -12,7 +12,7 @@ test.describe('Adding products to cart', () => {
 
     //adding product to cart
     test(`adds product to cart and verifies cart count and item quantities without warranty`, async ({ page }) => {
-        // Add locator handler for warranty panel
+        
         const noThanksButton = page.getByTestId('attachSiNoCoverage-announce');
         await noThanksButton.waitFor({ state: 'visible', timeout: 5000 }).catch(() => { });
 
@@ -34,9 +34,9 @@ test.describe('Adding products to cart', () => {
         await goToCartbutton.click()
 
         //Verify item subtotal
-        const itemQuantity = page.getByTestId("sc-subtotal-label-activecart");
-        const itemQuantityText = await itemQuantity.textContent();
-        expect(itemQuantityText).toContain("Subtotal (1 item)");
+        const itemSubtotal = page.getByTestId("sc-subtotal-label-activecart");
+        const itemSubtotalText = await itemSubtotal.textContent();
+        expect(itemSubtotalText).toContain("Subtotal (1 item)");
 
         //Proceed to checkout
         const proceedToCheckoutButton = page.getByTestId('desktop-ptc-button-celWidget');
@@ -51,24 +51,24 @@ test.describe('Adding products to cart', () => {
         const twoYearWarrantyCheckbox = page.locator('input[type="checkbox"][name="0"]');
         await twoYearWarrantyCheckbox.waitFor({ state: 'visible', timeout: 5000 }).catch(() => { });
 
-        let expectedCount: string;
-        let expectedItemQuantity: string;
+        let expectedCartCount: string;
+        let expectedItemSubtotal: string;
 
         // checks if the warranty panel is triggered
         if (await twoYearWarrantyCheckbox.isVisible()) {
             await twoYearWarrantyCheckbox.click({ force: true });
             await expect(twoYearWarrantyCheckbox).toBeChecked();
             //assigns correct count and item quantity for later assertions
-            expectedCount = "2";
-            expectedItemQuantity = "Subtotal (2 items):";
+            expectedCartCount = "2";
+            expectedItemSubtotal = "Subtotal (2 items):";
 
             //click the add protection button to add the warranty
             const addProtectionButton = page.getByTestId('attachSiAddCoverage');
             await expect(addProtectionButton).toBeVisible();
             await addProtectionButton.click({ force: true });
         } else {
-            expectedCount = "1";
-            expectedItemQuantity = "Subtotal (1 item):"
+            expectedCartCount = "1";
+            expectedItemSubtotal = "Subtotal (1 item):"
         }
         //verify success message
         const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS');
@@ -76,7 +76,7 @@ test.describe('Adding products to cart', () => {
 
         // Verify cart count
         const cartItemCount = page.getByTestId("nav-cart-count");
-        await expect(cartItemCount).toHaveText(expectedCount);
+        await expect(cartItemCount).toHaveText(expectedCartCount);
 
         //View your cart 
         const goToCartbutton = page.getByTestId("sw-gtc");
@@ -84,9 +84,9 @@ test.describe('Adding products to cart', () => {
         await goToCartbutton.click()
 
         //Verify the item quantity subtotal
-        const itemQuantity = page.getByTestId("sc-subtotal-label-activecart");
-        const itemQuantityText = (await itemQuantity.textContent())?.trim() || '';
-        expect(itemQuantityText).toBe(expectedItemQuantity);
+        const itemSubtotal = page.getByTestId("sc-subtotal-label-activecart");
+        const itemSubtotalText = (await itemSubtotal.textContent())?.trim() || '';
+        expect(itemSubtotalText).toBe(expectedItemSubtotal);
 
         //Proceed to checkout
         const proceedToCheckoutButton = page.getByTestId('desktop-ptc-button-celWidget');
@@ -100,8 +100,8 @@ test.describe('Adding products to cart', () => {
         const completeProtectionCheckbox = page.getByTestId('attach-warranty-multi-device-container').locator('input[type="checkbox"]');
         await completeProtectionCheckbox.waitFor({ state: 'visible', timeout: 5000 }).catch(() => { });
 
-        let expectedCount: string;
-        let expectedItemQuantity: string;
+        let expectedCartCount: string;
+        let expectedItemSubtotal: string;
 
         if (await completeProtectionCheckbox.isVisible()) {
             await completeProtectionCheckbox.click({ force: true });
@@ -111,18 +111,18 @@ test.describe('Adding products to cart', () => {
             const addProtectionButton = page.getByTestId('attachSiAddCoverage');
             await expect(addProtectionButton).toBeVisible();
             await addProtectionButton.click({ force: true });
-            expectedCount = "2";
-            expectedItemQuantity = "Subtotal (2 items):";
+            expectedCartCount = "2";
+            expectedItemSubtotal = "Subtotal (2 items):";
         }
         const successMessage = page.getByTestId('NATC_SMART_WAGON_CONF_MSG_SUCCESS');
         await expect(successMessage).toBeVisible();
-        expectedCount = "1";
-        expectedItemQuantity = "Subtotal (1 item):";
+        expectedCartCount = "1";
+        expectedItemSubtotal = "Subtotal (1 item):";
 
 
         // Verify cart count
         const cartItemCount = page.getByTestId("nav-cart-count");
-        await expect(cartItemCount).toHaveText(expectedCount);
+        await expect(cartItemCount).toHaveText(expectedCartCount);
 
         //View your cart 
         const goToCartbutton = page.getByTestId("sw-gtc")
@@ -130,9 +130,9 @@ test.describe('Adding products to cart', () => {
         await goToCartbutton.click()
 
         //Verify each item's quantity
-        const itemQuantity = page.getByTestId("sc-subtotal-label-activecart");
-        const itemQuantityText = (await itemQuantity.textContent())?.trim() || '';
-        expect(itemQuantityText).toBe(expectedItemQuantity);
+        const ItemSubtotal = page.getByTestId("sc-subtotal-label-activecart");
+        const itemSubtotalText = (await ItemSubtotal.textContent())?.trim() || '';
+        expect(itemSubtotalText).toBe(expectedItemSubtotal);
 
         //Proceed to checkout
         const proceedToCheckoutButton = page.getByTestId('desktop-ptc-button-celWidget');

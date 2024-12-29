@@ -130,8 +130,8 @@ test.describe('Adding products to cart', () => {
         await goToCartbutton.click()
 
         //Verify each item's quantity
-        const ItemSubtotal = page.getByTestId("sc-subtotal-label-activecart");
-        const itemSubtotalText = (await ItemSubtotal.textContent())?.trim() || '';
+        const itemSubtotal = page.getByTestId("sc-subtotal-label-activecart");
+        const itemSubtotalText = (await itemSubtotal.textContent())?.trim() || '';
         expect(itemSubtotalText).toBe(expectedItemSubtotal);
 
         //Proceed to checkout

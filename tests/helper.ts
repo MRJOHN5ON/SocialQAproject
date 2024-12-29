@@ -1,4 +1,3 @@
-
 import { Page, BrowserContext, Locator } from "@playwright/test";
 
 export async function searchForProductEnter(page: Page, searchQuery: string) {
@@ -26,4 +25,9 @@ export async function copyWithButton(
     return clipboardContent;
 
 
+}
+
+export async function addProductToCart(page: Page) {
+    const addToCart = page.getByTestId("add-to-cart-button");
+    await addToCart.click();
 }

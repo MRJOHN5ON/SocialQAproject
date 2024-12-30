@@ -7,7 +7,7 @@ test.describe('Product Searches', () => {
         await page.goto('https://www.amazon.com/')
     });
 
-    test('searching a product by text and submit using enter button', async ({ page }) => {
+    test('search a product by text and submit using enter button', async ({ page }) => {
 
         // search for product
         await searchForProductEnter(page, 'Powell Peralta Geegah Ripper Skate Deck')
@@ -20,7 +20,7 @@ test.describe('Product Searches', () => {
         await expect(productTitle).toHaveText('        Powell Peralta Geegah Ripper Skate Deck       ')
     });
 
-    test('searching for product by text and submit by clicking search button', async ({ page }) => {
+    test('search for product by text and submit using search button', async ({ page }) => {
 
         // search for product
         await searchForProductClick(page, 'Powell Peralta Geegah Ripper Skate Deck')
@@ -34,7 +34,7 @@ test.describe('Product Searches', () => {
     });
 
     // test only works if the product has customer reviews
-    test('finding the ASIN of the product with customer reviews and searching using it', async ({ page }) => {
+    test('search for product by ASIN retrieved from customer reviews', async ({ page }) => {
 
         //search for product
         await searchForProductEnter(page, 'Powell Peralta Geegah Ripper Skate Deck')

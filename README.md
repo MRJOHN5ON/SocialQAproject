@@ -6,7 +6,11 @@ The course is focused on learning the Playwright framework.
 
 
 ## Tests
-- **Adding to Cart**: Tests the functionality of adding products to the shopping cart on the Amazon website. The `config.ts` file allows for easy swapping of the product link, enabling testing of any product. The adding to cart script is designed to handle different product situations, including whether the warranty panel is triggered. The expected cart count and item subtotal are dynamically adjusted based on whether a warranty is added or not.
+- **Adding to Cart**: There are two test files that handle the functionality of adding products to the shopping cart on the Amazon website:
+  - `addCartDenyWarranty.spec.ts`: This test verifies the process of adding a product to the cart while denying the warranty. It checks for the visibility of the "No Thanks" button, asserts the success message, verifies the cart count, and ensures the item subtotal is correct.
+  - `addCart2yearWarranty.spec.ts`: This test checks the process of adding a product to the cart while applying a 2-year warranty. It verifies that the warranty panel is triggered, checks the cart count, and ensures the item subtotal reflects the added warranty.
+  
+  Both tests utilize the `config.ts` file, which contains URLs for products with and without warranties. This allows for easy swapping of product links, enabling testing of different scenarios without changing the test code itself.
 - **Product Searches**: Verifies the search functionality for products on Amazon. The tests cover various scenarios, including:
   - Searching for a product by text and submitting using the enter button.
   - Searching for a product by text and submitting by clicking the search button.

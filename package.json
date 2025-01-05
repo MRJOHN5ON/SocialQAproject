@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-"test": "npx playwright test --project=chrome",
-"debug": "npx playwright test --project=chrome --debug"
-},
+    "test": "npx playwright test --project=chrome", 
+    "test:ci": "npx playwright test --project=chrome --workers=1", 
+    "debug": "npx playwright test --project=chrome --debug",
+    "postinstall": "npx playwright install --with-deps" 
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
+    "@playwright/test": "^1.38.0",
     "@types/node": "^22.10.1"
   }
 }

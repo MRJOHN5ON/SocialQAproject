@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx playwright test --project=chrome", 
-    "test:ci": "npx playwright test --project=chrome --workers=1", 
-    "debug": "npx playwright test --project=chrome --debug",
-    "postinstall": "npx playwright install --with-deps" 
+    "debug": "npx playwright test --project=chrome --debug" 
   },
   "keywords": [],
   "author": "",

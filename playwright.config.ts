@@ -6,7 +6,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0, // Retry failed tests in CI but not locally
   workers: process.env.CI ? 1 : undefined, // Use 1 worker in CI, default locally
   reporter: 'list', // Minimal reporter suitable for CI
-  timeout: 120000, // Set timeout to 2 minutes per test
+  timeout: 60000, // Set timeout to 1 minute per test
   use: {
     headless: true, // Run in headless mode
     trace: 'retain-on-failure', // Keep trace files for failed tests

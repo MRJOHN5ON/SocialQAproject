@@ -2,9 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true, // Allow tests to run in parallel across shards
+  fullyParallel: false, // Disable full parallelism since we’re using 1 worker
   retries: process.env.CI ? 2 : 0, // Retry failed tests in CI but not locally
-  workers: process.env.CI ? undefined : 1, // Use default worker count in CI; 1 locally
+  workers: 1, // Explicitly set workers to 1 for all environments
   reporter: [['html'], ['list']], // Use HTML and CLI reporters
   timeout: 120000, // Keep test timeout at 2 minutes
   use: {

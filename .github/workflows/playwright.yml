@@ -19,13 +19,13 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run each Playwright test file individually
       run: |
-        for file in $(npx playwright list-files); do
+        for file in $(npx playwright list-files | jq -r '.projects[0].files[]'); do
           echo "Running test file: $file"
-          npx playwright test $file || exit 1
+          npx playwright test "$file" || exit 1
         done
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: playwright-report
+        name: playwright-traces
         path: playwright-report/
         retention-days: 30

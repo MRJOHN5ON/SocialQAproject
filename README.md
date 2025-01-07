@@ -10,7 +10,7 @@ The course is focused on learning the Playwright framework.
   - `addCartDenyWarranty.spec.ts`: This test verifies the process of adding a product to the cart while denying the warranty. It checks for the visibility of the "No Thanks" button, asserts the success message, verifies the cart count, and ensures the item subtotal is correct.
   - `addCart2yearWarranty.spec.ts`: This test checks the process of adding a product to the cart while applying a 2-year warranty. It verifies that the warranty panel is triggered, checks the cart count, and ensures the item subtotal reflects the added warranty.
   
-  Both tests utilize the `config.ts` file, which contains URLs for products with and without warranties. This allows for easy swapping of product links, enabling testing of different scenarios without changing the test code itself.
+  Both tests utilize the `helper.ts` file, which contains config URLs for products with and without warranties. This allows for easy swapping of product links, enabling testing of different scenarios without changing the test code itself.
 - **Product Searches**: Verifies the search functionality for products on Amazon. The tests cover various scenarios, including:
   - Searching for a product by text and submitting using the enter button.
   - Searching for a product by text and submitting by clicking the search button.

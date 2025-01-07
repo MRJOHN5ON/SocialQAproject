@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { addProductToCart } from './helper';
-import { config } from './config'
+import { addProductToCart, config } from './helper';
+// import { config } from './config'
 
 
 test(`adds product from to cart, applies 2-year warranty, and verifies cart count and item quantities`, async ({ page }) => {

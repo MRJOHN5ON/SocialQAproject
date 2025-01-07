@@ -31,3 +31,10 @@ export async function addProductToCart(page: Page) {
     const addToCart = page.getByTestId("add-to-cart-button");
     await addToCart.click();
 }
+
+export const config = {
+    productWithDenyWarrantyURL:
+        'https://a.co/d/a0Huxit',
+    productWith2yearWarrantyURL:
+        'https://a.co/d/3eJ17oT',
+};
